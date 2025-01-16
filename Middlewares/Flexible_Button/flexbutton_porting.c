@@ -75,13 +75,13 @@ static void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf("key up press\n"); break;
+				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key up press\r\n"); break;
 				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf("key up double click\n"); break;
+				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key up double click\r\n"); break;
 				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf("key up short clicking\n"); break;
+				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key up short clicking\r\n"); break;
 				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf("key up long clicking\n"); break;
+				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key up long clicking\r\n"); break;
 			}
 		
             break;
@@ -90,13 +90,13 @@ static void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf("key down press\n"); break;
+				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key down press\r\n"); break;
 				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf("key down double click\n"); break;
+				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key down double click\r\n"); break;
 				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf("key down short clicking\n"); break;
+				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key down short clicking\r\n"); break;
 				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf("key down long clicking\n"); break;
+				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key down long clicking\r\n"); break;
 			}
 		
             break;
@@ -105,13 +105,13 @@ static void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf("key confirm press\n"); break;
+				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key confirm press\r\n"); break;
 				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf("key confirm double click\n"); break;
+				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key confirm double click\r\n"); break;
 				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf("key confirm short clicking\n"); break;
+				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key confirm short clicking\r\n"); break;
 				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf("key confirm long clicking\n"); break;
+				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key confirm long clicking\r\n"); break;
 			}
 		
             break;
@@ -120,13 +120,13 @@ static void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf("key return press\n"); break;
+				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key return press\r\n"); break;
 				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf("key return double click\n"); break;
+				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key return double click\r\n"); break;
 				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf("key return short clicking\n"); break;
+				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key return short clicking\r\n"); break;
 				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf("key return long clicking\n"); break;
+				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key return long clicking\r\n"); break;
 			}
 		
             break;

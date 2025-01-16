@@ -794,14 +794,56 @@
               <FilePath>..\Middlewares\Multi_Timer\MultiTimer.c</FilePath>
             </File>
             <File>
-              <FileName>MultiTimer_porting.c</FileName>
+              <FileName>MultiTimer_callback.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Middlewares\Multi_Timer\MultiTimer_porting.c</FilePath>
+              <FilePath>..\Middlewares\Multi_Timer\MultiTimer_callback.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>::CMSIS</GroupName>
+          <GroupName>Middlwwares/Letter_Shell</GroupName>
+          <Files>
+            <File>
+              <FileName>shell.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\shell.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell_cmd_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\shell_cmd_list.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell_companion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\shell_companion.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell_ext.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\shell_ext.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\shell_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>letter_shell_porting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Letter_Shell\letter_shell_porting.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/cqueue</GroupName>
+          <Files>
+            <File>
+              <FileName>cQueue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\cqueue\cQueue.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Middlewares/Library/DSP Library/DSP Library</GroupName>
@@ -900,6 +942,9 @@
               </FileOption>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>

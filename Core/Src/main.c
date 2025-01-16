@@ -33,7 +33,8 @@
 #include "./Flexible_Button/flexible_button.h"
 #include "./Flexible_Button/flexbutton_porting.h"
 #include "./Multi_Timer/MultiTimer.h"
-#include "./Multi_Timer/MultiTimer_porting.h"
+#include "./Multi_Timer/MultiTimer_callback.h"
+#include "./Letter_Shell/letter_shell_porting.h"
 
 /* USER CODE END Includes */
 
@@ -108,6 +109,7 @@ int main(void)
 
   OLED_Init(); /*初始化OLED*/
   user_button_init(); /*初始化flexible button*/
+  debug_shell_init(); /*初始化letter shell*/
   multiTimerInstall(get_sys_time_base); /*载入MultiTimer软件定时器时基*/
 
   /* USER CODE END 2 */
@@ -120,6 +122,7 @@ int main(void)
   btn_scan_tim_start(); /*启动按键扫描软件定时器*/
   led_flicker_tim_start(); /*启动LED闪烁软件定时器*/
   oled_update_tim_start(); /*启动OLED更新软件定时器*/
+  letter_shell_tim_start(); /*启动letter shell任务软件定时器*/
  
   HAL_TIM_Base_Start_IT(&TIME_BASE_TIM); /*启动系统定时器*/
   debug_usart_rec_start(); /*使能调试串口首次接收*/
@@ -134,9 +137,7 @@ int main(void)
 	  if(tick_timing - pre_tick_timing >= 500)
 	  {
 		  scwefw += 0.1f;
-		  arm_cos_f32(scwefw);		  
-		  OLED_ShowFloatNum(10, 10, scwefw, 4, 4, OLED_8X16);
-		  OLED_ShowString(0, 40, debug_rec_data, OLED_6X8);
+		  OLED_ShowFloatNum(10, 10, arm_cos_f32(scwefw), 4, 4, OLED_8X16);
 		  pre_tick_timing = tick_timing;
 	  }
 	  

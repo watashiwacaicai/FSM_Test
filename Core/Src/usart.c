@@ -25,12 +25,14 @@
 #include "stdio.h" /*引入格式化字符*/
 #include "stdarg.h" /*引入不定参数*/
 #include "string.h"
+#include "./cqueue/Cqueue.h"
+#include "./Letter_Shell/letter_shell_porting.h"
 
 /*全局变量定义*/
 char debug_rec_data[DEBUG_REC_LEN] = "abc"; /*数据接收存储区*/
 
 /*静态变量定义*/
- char debug_rec_buffer[DEBUG_REC_LEN] = "abc"; /*dma接收缓冲区*/
+static char debug_rec_buffer[DEBUG_REC_LEN] = "abc"; /*dma接收缓冲区*/
 
 /* USER CODE END 0 */
 
@@ -160,7 +162,7 @@ void debug_usart_rec_start(void)
 /*调试输出函数*/
 int debug_printf(const char *format, ...)
 {
-    char buffer[512]; /*定义一个缓冲区，用于存储格式化后的字符串*/
+    char buffer[256]; /*定义一个缓冲区，用于存储格式化后的字符串*/
     va_list arg;      /*定义一个可变参数列表*/
     int len;          /*定义一个变量，用于存储格式化后字符串的长度*/
    
@@ -181,7 +183,8 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 	{		
 		HAL_UART_DMAStop(huart); /*关闭所有串口的dma接收*/
 		rec_len = DEBUG_REC_LEN - __HAL_DMA_GET_COUNTER(&DEBUG_USART_DMA_RX); /*获取DMA中传输的数据个数*/		
-		memcpy(debug_rec_data, debug_rec_buffer, rec_len); /*转存数据，memcpy比较高效*/		
+		memcpy(debug_rec_data, debug_rec_buffer, rec_len); /*转存数据，memcpy比较高效*/
+		cQPost(que_debug_data, (void *)debug_rec_data); /*将接收到的数据载入调试信息队列*/
 		HAL_UARTEx_ReceiveToIdle_DMA(&DEBUG_USART, (uint8_t*)debug_rec_buffer, DEBUG_REC_LEN); /*再次开启DMA空闲中断*/
 	}
 }
