@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -32,9 +31,11 @@
 #include "./OLED/OLED.h"
 #include "./Flexible_Button/flexible_button.h"
 #include "./Flexible_Button/flexbutton_porting.h"
+#include "./Malloc/malloc.h"
 #include "./Multi_Timer/MultiTimer.h"
 #include "./Multi_Timer/MultiTimer_callback.h"
 #include "./Letter_Shell/letter_shell_porting.h"
+#include "./Gear_Motor/gear_motor.h"
 
 /* USER CODE END Includes */
 
@@ -101,15 +102,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
+  my_mem_init(SRAMIN);			/*初始化内部内存池*/
+  my_mem_init(SRAMCCM);			/*初始化CCM内存池*/
   OLED_Init(); /*初始化OLED*/
   user_button_init(); /*初始化flexible button*/
   debug_shell_init(); /*初始化letter shell*/
+  motor_pid_init(); /*初始化电机pid*/
+  sovor_pid_init();
   multiTimerInstall(get_sys_time_base); /*载入MultiTimer软件定时器时基*/
 
   /* USER CODE END 2 */
@@ -125,8 +129,8 @@ int main(void)
   letter_shell_tim_start(); /*启动letter shell任务软件定时器*/
  
   HAL_TIM_Base_Start_IT(&TIME_BASE_TIM); /*启动系统定时器*/
-  debug_usart_rec_start(); /*使能调试串口首次接收*/
- 
+  debug_usart_rec_start(); /*使能调试串口接收*/
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -137,7 +141,7 @@ int main(void)
 	  if(tick_timing - pre_tick_timing >= 500)
 	  {
 		  scwefw += 0.1f;
-		  OLED_ShowFloatNum(10, 10, arm_cos_f32(scwefw), 4, 4, OLED_8X16);
+		  OLED_ShowFloatNum(0, 0, arm_cos_f32(scwefw), 0, 4, OLED_8X16);
 		  pre_tick_timing = tick_timing;
 	  }
 	  

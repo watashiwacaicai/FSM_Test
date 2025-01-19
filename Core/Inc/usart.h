@@ -39,11 +39,7 @@ extern UART_HandleTypeDef huart1;
 #define DEBUG_USART_DMA_RX	hdma_usart1_rx
 #define DEBUG_USART_PORT	USART1
 #define DEBUG_USART 		huart1
-#define DEBUG_REC_LEN 		256			/*调试数据接收缓冲区与存储区的大小*/
-#define DEBUG_QUE_LEN		5			/*调试数据接收队列的长度*/
 
-extern char debug_rec_data[DEBUG_REC_LEN]; /*调试数据接收存储区*/
-	
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);
@@ -52,6 +48,7 @@ void MX_USART1_UART_Init(void);
 
 int debug_printf(const char *format, ...);
 void debug_usart_rec_start(void);
+void DEBUG_UART_RxCallback(void);
 
 /* USER CODE END Prototypes */
 

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "usart.h"
 #include "user_led.h"
 #include "./OLED/OLED.h"
 #include "./Flexible_Button/flexible_button.h"
@@ -36,13 +37,13 @@ void led_flicker_tim_start(void)
 /*OLED更新定时器启动函数*/
 void oled_update_tim_start(void)
 {
-	multiTimerStart(&oled_update_timer, 25, oled_update_tim_cb, NULL);
+	multiTimerStart(&oled_update_timer, 30, oled_update_tim_cb, NULL);
 }
 
 /*letter shell任务定时器启动函数*/
 void letter_shell_tim_start(void)
 {
-	multiTimerStart(&letter_shell_timer, 50, letter_shell_tim_cb, NULL);
+	multiTimerStart(&letter_shell_timer, 20, letter_shell_tim_cb, NULL);
 }
 
 /**********静态函数**********/
