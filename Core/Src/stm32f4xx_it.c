@@ -23,7 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include "usart.h"
+#include "user_usart.h"
 
 /* USER CODE END Includes */
 

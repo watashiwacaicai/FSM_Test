@@ -22,9 +22,6 @@
 
 /* USER CODE BEGIN 0 */
 
-/*静态变量定义*/
-volatile static uint64_t sys_ticking = 0; /*系统时基，1ms自增一次*/
-
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim6;
@@ -103,24 +100,5 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
-
-/*********全局函数定义**********/
-
-/*系统时基获取函数*/
-uint64_t get_sys_time_base(void)
-{
-	return sys_ticking;
-}
-
-/*定时中断回调函数*/
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if(htim->Instance == TIME_BASE_TIM_PORT)
-	{
-		sys_ticking++; /*系统时基自增*/
-	}
-}
-
-/*********全局函数定义**********/
 
 /* USER CODE END 1 */

@@ -36,16 +36,11 @@ extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN Private defines */
 
-#define TIME_BASE_TIM 		htim6
-#define TIME_BASE_TIM_PORT  TIM6
-
 /* USER CODE END Private defines */
 
 void MX_TIM6_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
-uint64_t get_sys_time_base(void);
 
 /* USER CODE END Prototypes */
 

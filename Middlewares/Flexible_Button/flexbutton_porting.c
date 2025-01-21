@@ -1,32 +1,16 @@
 #include "main.h"  
-#include "usart.h"
+#include "user_usart.h"
 #include "string.h"
+#include "./Flexible_Button/flexbutton_callback.h"
 #include "./Flexible_Button/flexbutton_porting.h"
 #include "./Flexible_Button/flexible_button.h"
-
-/******类型定义*********/
-
-/*用户按键枚举定义*/
-enum user_button_t
-{                    
-    USER_BUTTON_UP = 0,
-	USER_BUTTON_DOWM,
-	USER_BUTTON_CONFIRM,
-	USER_BUTTON_RETURN	
-};
-
-/**********类型定义**********/
 
 /*********全局变量定义*******/
 
 /*定义按键数组*/
 flex_button_t user_button[USER_BUTTON_NUM];
 
-/**********全局变量定义******/
-
-
 /*静态函数声明*/
-static void user_btn_callback(void *arg);
 static uint8_t user_btn_pin_read(void *arg);
 
 /***********公共函数定义********/
@@ -51,75 +35,6 @@ void user_button_init(void)
 }
 
 /*******************静态函数定义**************/
-
-/*用户按键的事件回调函数*/
-static void user_btn_callback(void *arg)
-{
-	flex_button_t *btn = (flex_button_t *)arg;
-
-    switch (btn->id)
-    {
-        case USER_BUTTON_UP:
-            
-			switch(btn->event)
-			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key up press\r\n"); break;
-				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key up double click\r\n"); break;
-				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key up short clicking\r\n"); break;
-				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key up long clicking\r\n"); break;
-			}
-		
-            break;
-		
-        case USER_BUTTON_DOWM:
-            
-			switch(btn->event)
-			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key down press\r\n"); break;
-				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key down double click\r\n"); break;
-				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key down short clicking\r\n"); break;
-				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key down long clicking\r\n"); break;
-			}
-		
-            break;
-		
-		case USER_BUTTON_CONFIRM:
-            
-			switch(btn->event)
-			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key confirm press\r\n"); break;
-				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key confirm double click\r\n"); break;
-				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key confirm short clicking\r\n"); break;
-				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key confirm long clicking\r\n"); break;
-			}
-		
-            break;
-		
-		case USER_BUTTON_RETURN:
-            
-			switch(btn->event)
-			{
-				case FLEX_BTN_PRESS_CLICK:			debug_printf(">>key return press\r\n"); break;
-				
-				case FLEX_BTN_PRESS_DOUBLE_CLICK:	debug_printf(">>key return double click\r\n"); break;
-				
-				case FLEX_BTN_PRESS_SHORT_START:	debug_printf(">>key return short clicking\r\n"); break;
-				
-				case FLEX_BTN_PRESS_LONG_HOLD:		debug_printf(">>key return long clicking\r\n"); break;
-			}
-		
-            break;
-    }
-}
 
 /*按键引脚电平读取函数*/
 /*这个按键库的遍扫顺序是逆序的，因此按键的检测也得是逆序的*/

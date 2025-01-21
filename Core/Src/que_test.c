@@ -1,37 +1,44 @@
-#include "./Cqueue/cQueue.h"
-#include "./Malloc/malloc.h"
+#include "./Lw_Queue/lw_queue.h"
+#include "./TLSF/tlsf_porting.h"
+#include "./TLSF/tlsf.h"
 #include "./OLED/OLED.h"
 
-cQueue_t* te_que;
-char ol_ou;
-char ks = 'a';
-char* ol_ot;
-char ol_ot_st[10];
-char* err;
-
-void qe_add(void)
-{
-	char* to_add = (char*)mymalloc(SRAMCCM, sizeof(char));
-	*to_add = ks;
-	cQPost(te_que, (void*)to_add);
-}
+lw_que_t* test_que;
+char jk = 'A';
+char* wri_jk;
+char* rec_jk;
+char rec_jk_str[10];
+char que_err;
 
 void que_te(void)
-{
-	te_que = cQcreate(20);
-	
+{		
+	test_que = lw_queue_create(5);
+
 	for(int i = 0; i < 10; i++)
 	{
-		qe_add();
-		ks++;
+		wri_jk = (char*)tlsf_malloc(ccm_pool_manager, sizeof(char));
+		*wri_jk = jk;
+		que_err = lw_queue_write(test_que, (void*)wri_jk);
+		if(que_err == LWQ_ERR)
+		{
+			tlsf_free(ccm_pool_manager, (void*)wri_jk);
+			break;
+		}
+		jk++;
 	}
-	
+
 	for(int i = 0; i < 10; i++)
-	{		
-		ol_ot = (char*)cQRcv(te_que, err);	
-		ol_ot_st[i] = *ol_ot;
-		myfree(SRAMCCM, ol_ot);
+	{
+		rec_jk = (char*)lw_queue_read(test_que, &que_err);
+
+		if(que_err == LWQ_ERR)
+		{
+			break;
+		}
+		rec_jk_str[i] = *rec_jk;
+		tlsf_free(ccm_pool_manager, (void*)rec_jk);
 	}
-	
-	OLED_ShowString(0, 20, ol_ot_st, OLED_8X16);
+
+	OLED_ShowString(0, 16, rec_jk_str, OLED_8X16);
+
 }

@@ -6,8 +6,8 @@
 /*ต๗สิบ๊*/
 #define GEAR_MOTOR_DEBUG
 
-extern Fullscale_Pid_t motor_pid;
-extern Increment_Pid_t sovor_pid;
+extern Pid_object_t motor_pid;
+extern Pid_object_t sovor_pid;
 
 void motor_pid_init(void);
 void sovor_pid_init(void);

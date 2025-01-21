@@ -338,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F407xx,keep shellCommand</Define>
+              <Define>USE_HAL_DRIVER,STM32F407xx,keep shellCommand,STM32_THREAD_SAFE_STRATEGY=2</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Hardware;../BSP/Inc;../Middlewares/ST/ARM/DSP/Inc;../Middlewares</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Hardware;../BSP/Inc;../Middlewares/ST/ARM/DSP/Inc;../Middlewares;../Application/Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -389,11 +389,26 @@
               <FileType>2</FileType>
               <FilePath>startup_stm32f407xx.s</FilePath>
             </File>
+            <File>
+              <FileName>armlib_lock_glue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>armlib_lock_glue.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Application/User/Core</GroupName>
           <Files>
+            <File>
+              <FileName>user_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\user_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\user_usart.c</FilePath>
+            </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
@@ -530,6 +545,16 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Application</GroupName>
+          <Files>
+            <File>
+              <FileName>fsm_menu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Application\Src\fsm_menu.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -737,6 +762,11 @@
               <FileType>1</FileType>
               <FilePath>..\Middlewares\Flexible_Button\flexbutton_porting.c</FilePath>
             </File>
+            <File>
+              <FileName>flexbutton_callback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Flexible_Button\flexbutton_callback.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -795,22 +825,42 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Middlewares/Malloc</GroupName>
-          <Files>
-            <File>
-              <FileName>malloc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Middlewares\Malloc\malloc.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Middlewares/Lw_Pid</GroupName>
           <Files>
             <File>
               <FileName>lw_pid.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\Lw_Pid\lw_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/TLSF</GroupName>
+          <Files>
+            <File>
+              <FileName>tlsf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\tlsf\tlsf.c</FilePath>
+            </File>
+            <File>
+              <FileName>tlsf_porting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\tlsf\tlsf_porting.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/Lw_Queue</GroupName>
+          <Files>
+            <File>
+              <FileName>lw_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Lw_Queue\lw_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>lw_queue_porting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Lw_Queue\lw_queue_porting.c</FilePath>
             </File>
           </Files>
         </Group>

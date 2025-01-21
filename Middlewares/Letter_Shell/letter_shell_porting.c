@@ -1,5 +1,6 @@
 #include "main.h"
 #include "usart.h"
+#include "user_usart.h"
 #include "./Letter_Shell/shell.h"
 #include "./Letter_Shell/letter_shell_porting.h"
 

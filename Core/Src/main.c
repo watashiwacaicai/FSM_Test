@@ -26,12 +26,15 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "user_tim.h"
+#include "user_usart.h"
 #include "arm_math.h"
 #include "user_led.h"
+#include "fsm_menu.h"
 #include "./OLED/OLED.h"
+#include "./TLSF/tlsf_porting.h"
 #include "./Flexible_Button/flexible_button.h"
 #include "./Flexible_Button/flexbutton_porting.h"
-#include "./Malloc/malloc.h"
 #include "./Multi_Timer/MultiTimer.h"
 #include "./Multi_Timer/MultiTimer_callback.h"
 #include "./Letter_Shell/letter_shell_porting.h"
@@ -58,7 +61,8 @@
 
 /* USER CODE BEGIN PV */
 
-float32_t scwefw = 0.0;
+static char que_rec;	/*用于暂存消息队列读取的状态*/
+static char* menu_fsm_msg; /*用于暂存菜单状态机的消息*/
 
 /* USER CODE END PV */
 
@@ -107,11 +111,11 @@ int main(void)
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
-  my_mem_init(SRAMIN);			/*初始化内部内存池*/
-  my_mem_init(SRAMCCM);			/*初始化CCM内存池*/
+  ccm_pool_init(); /*初始化ccm内存池*/
   OLED_Init(); /*初始化OLED*/
   user_button_init(); /*初始化flexible button*/
   debug_shell_init(); /*初始化letter shell*/
+  menu_init(&menu_fsm); /*初始化菜单状态机*/
   motor_pid_init(); /*初始化电机pid*/
   sovor_pid_init();
   multiTimerInstall(get_sys_time_base); /*载入MultiTimer软件定时器时基*/
@@ -121,14 +125,12 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   
-  static uint64_t tick_timing = 0;
-  static uint64_t pre_tick_timing = 0;
   btn_scan_tim_start(); /*启动按键扫描软件定时器*/
   led_flicker_tim_start(); /*启动LED闪烁软件定时器*/
   oled_update_tim_start(); /*启动OLED更新软件定时器*/
   letter_shell_tim_start(); /*启动letter shell任务软件定时器*/
  
-  HAL_TIM_Base_Start_IT(&TIME_BASE_TIM); /*启动系统定时器*/
+  HAL_TIM_Base_Start_IT(&TIME_BASE_TIM); /*启动系统时基定时器*/
   debug_usart_rec_start(); /*使能调试串口接收*/
 
   while (1)
@@ -136,14 +138,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  tick_timing = get_sys_time_base();
 	  
-	  if(tick_timing - pre_tick_timing >= 500)
+	  menu_fsm_msg = (char*)lw_queue_read(que_menu_msg, &que_rec); /*尝试读取菜单消息*/
+	  
+	  /*如果读取到了消息*/
+	  if(que_rec == LWQ_SUCCESS)
 	  {
-		  scwefw += 0.1f;
-		  OLED_ShowFloatNum(0, 0, arm_cos_f32(scwefw), 0, 4, OLED_8X16);
-		  pre_tick_timing = tick_timing;
-	  }
+		  menu_event.menu_event_sinal = (uint8_t)*menu_fsm_msg; /*存入事件*/
+		  tlsf_free(ccm_pool_manager, (void*)menu_fsm_msg); /*清理垃圾*/
+		  menu_dispatch(&menu_fsm, &menu_event); /*执行状态机*/		  
+	  }	
 	  
 	  multiTimerYield(); /*执行软件定时器任务*/  
 	  

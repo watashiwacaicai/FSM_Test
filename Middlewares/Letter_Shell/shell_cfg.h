@@ -12,7 +12,7 @@
 #ifndef __SHELL_CFG_H__
 #define __SHELL_CFG_H__
 
-#include "tim.h"
+#include "user_tim.h"
 
 /**
  * @brief 是否使用默认shell任务while循环，使能宏`SHELL_USING_TASK`后此宏有意义

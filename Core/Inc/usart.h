@@ -36,19 +36,11 @@ extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
 
-#define DEBUG_USART_DMA_RX	hdma_usart1_rx
-#define DEBUG_USART_PORT	USART1
-#define DEBUG_USART 		huart1
-
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
-int debug_printf(const char *format, ...);
-void debug_usart_rec_start(void);
-void DEBUG_UART_RxCallback(void);
 
 /* USER CODE END Prototypes */
 
