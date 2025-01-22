@@ -25,6 +25,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "./TLSF/tlsf_porting.h"
 
 /**
   * 数据存储格式：
@@ -79,8 +80,11 @@
   * 所有的显示函数，都只是对此显存数组进行读写
   * 随后调用OLED_Update函数或OLED_UpdateArea函数
   * 才会将显存数组的数据发送到OLED硬件，进行显示
+  * 由于OLED的硬件显示没有使用dma，因此
+  * 此处将显存定义到ccm内存区中紧跟在cmm内存池的后面，
+  * 以此发挥最大运算性能
   */
-uint8_t OLED_DisplayBuf[8][128];
+uint8_t OLED_DisplayBuf[8][128] __attribute__((at(CCM_RAM_ADDR + CCM_MEM_POOL_SIZE)));
 
 /*********************全局变量*/
 

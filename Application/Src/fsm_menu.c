@@ -5,7 +5,6 @@
 /*全局变量定义*/
 lw_que_t* que_menu_msg; /*菜单状态机的消息队列*/
 menu_fsm_t menu_fsm; /*菜单状态机*/
-menu_event_t menu_event; /*菜单事件*/
 
 /*静态函数声明*/
 static void page_0_load(void);

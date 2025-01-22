@@ -52,7 +52,6 @@ typedef struct _menu_fsm
 /*声明*/
 extern lw_que_t* que_menu_msg; /*菜单状态机的消息队列*/
 extern menu_fsm_t menu_fsm; /*菜单状态机*/
-extern menu_event_t menu_event; /*菜单事件*/
 
 void menu_init(menu_fsm_t* me);
 void menu_dispatch(menu_fsm_t* me, menu_event_t* event);

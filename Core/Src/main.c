@@ -62,7 +62,7 @@
 /* USER CODE BEGIN PV */
 
 static char que_rec;	/*用于暂存消息队列读取的状态*/
-static char* menu_fsm_msg; /*用于暂存菜单状态机的消息*/
+menu_event_t* menu_fsm_msg; /*用于暂存菜单状态机的消息*/
 
 /* USER CODE END PV */
 
@@ -139,14 +139,13 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  
-	  menu_fsm_msg = (char*)lw_queue_read(que_menu_msg, &que_rec); /*尝试读取菜单消息*/
+	  menu_fsm_msg = (menu_event_t*)lw_queue_read(que_menu_msg, &que_rec); /*尝试读取菜单消息*/
 	  
 	  /*如果读取到了消息*/
 	  if(que_rec == LWQ_SUCCESS)
-	  {
-		  menu_event.menu_event_sinal = (uint8_t)*menu_fsm_msg; /*存入事件*/
-		  tlsf_free(ccm_pool_manager, (void*)menu_fsm_msg); /*清理垃圾*/
-		  menu_dispatch(&menu_fsm, &menu_event); /*执行状态机*/		  
+	  {		  		  
+		  menu_dispatch(&menu_fsm, menu_fsm_msg); /*执行状态机*/		
+		  tlsf_free(ccm_pool_manager, (void*)menu_fsm_msg); /*清理已经处理过的事件*/
 	  }	
 	  
 	  multiTimerYield(); /*执行软件定时器任务*/  
