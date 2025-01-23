@@ -1,0 +1,10 @@
+fsm_test\flexbutton_callback.o: ..\Middlewares\Flexible_Button\flexbutton_callback.c
+fsm_test\flexbutton_callback.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdint.h
+fsm_test\flexbutton_callback.o: ../Core/Inc/user_usart.h
+fsm_test\flexbutton_callback.o: ../Application/Inc/fsm_menu.h
+fsm_test\flexbutton_callback.o: ../Middlewares/./Lw_Queue/lw_queue.h
+fsm_test\flexbutton_callback.o: ../Middlewares/./Flexible_Button/flexible_button.h
+fsm_test\flexbutton_callback.o: ../Middlewares/./Flexible_Button/flexbutton_porting.h
+fsm_test\flexbutton_callback.o: ../Middlewares/./TLSF/tlsf.h
+fsm_test\flexbutton_callback.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stddef.h
+fsm_test\flexbutton_callback.o: ../Middlewares/./TLSF/tlsf_porting.h

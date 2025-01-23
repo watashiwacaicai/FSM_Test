@@ -11,7 +11,6 @@
 void user_btn_callback(void *arg)
 {
 	flex_button_t *btn = (flex_button_t *)arg;
-	menu_event_t* send_msg;
 
     switch (btn->id)
     {
@@ -19,13 +18,14 @@ void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:		
-					send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
+				case FLEX_BTN_PRESS_CLICK:	
+				{		
+					menu_event_t* send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
 					send_msg->menu_event_sinal = UP_SIG; /*事件赋值*/
 					lw_queue_write(que_menu_msg, (void*)send_msg); /*将事件送入菜单消息队列*/
 					debug_printf(">>key up press\r\n"); 
 				break;
-				
+				}
 				case FLEX_BTN_PRESS_DOUBLE_CLICK:	
 					debug_printf(">>key up double click\r\n"); 
 				break;
@@ -45,13 +45,14 @@ void user_btn_callback(void *arg)
             
 			switch(btn->event)
 			{
-				case FLEX_BTN_PRESS_CLICK:		
-					send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
+				case FLEX_BTN_PRESS_CLICK:	
+				{
+					menu_event_t* send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
 					send_msg->menu_event_sinal = DOWN_SIG; /*事件赋值*/
 					lw_queue_write(que_menu_msg, (void*)send_msg); /*将事件送入菜单消息队列*/
 					debug_printf(">>key down press\r\n"); 
 				break;
-				
+				}
 				case FLEX_BTN_PRESS_DOUBLE_CLICK:	
 					debug_printf(">>key down double click\r\n"); 
 				break;
@@ -72,12 +73,13 @@ void user_btn_callback(void *arg)
 			switch(btn->event)
 			{
 				case FLEX_BTN_PRESS_CLICK:	
-					send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
+				{
+					menu_event_t* send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
 					send_msg->menu_event_sinal = CONFIRM_SIG; /*事件赋值*/
 					lw_queue_write(que_menu_msg, (void*)send_msg); /*将事件送入菜单消息队列*/
 					debug_printf(">>key confirm press\r\n"); 
 				break;
-				
+				}
 				case FLEX_BTN_PRESS_DOUBLE_CLICK:	
 					debug_printf(">>key confirm double click\r\n"); 
 				break;
@@ -98,12 +100,13 @@ void user_btn_callback(void *arg)
 			switch(btn->event)
 			{
 				case FLEX_BTN_PRESS_CLICK:	
-					send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
+				{
+					menu_event_t* send_msg = (menu_event_t*)tlsf_malloc(ccm_pool_manager, sizeof(menu_event_t)); /*为事件申请内存空间*/
 					send_msg->menu_event_sinal = RETURN_SIG; /*事件赋值*/
 					lw_queue_write(que_menu_msg, (void*)send_msg); /*将事件送入菜单消息队列*/
 					debug_printf(">>key return press\r\n"); 
 				break;
-				
+				}
 				case FLEX_BTN_PRESS_DOUBLE_CLICK:	
 					debug_printf(">>key return double click\r\n"); 
 				break;
