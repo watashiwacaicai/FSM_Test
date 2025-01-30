@@ -4,6 +4,7 @@
 #include "stdarg.h" /*引入不定参数*/
 #include "string.h"
 #include "./Letter_Shell/letter_shell_porting.h"
+#include "./Lw_rb/lw_rb.h"
 
 /*静态变量定义*/
 static char rec_data; /*串口接收到的一个字节的数据*/
@@ -37,6 +38,6 @@ void DEBUG_UART_RxCallback(void)
 	if(__HAL_UART_GET_FLAG(&DEBUG_USART, UART_FLAG_RXNE ) != RESET)
 	{				
 		rec_data = (char)READ_REG(DEBUG_USART.Instance->DR); /*直接从寄存器中读取数据*/	
-		debug_que_send(&debug_data_queue, &rec_data); /*将接收到的数据载入调试信息队列*/
+		lw_rb_write(debug_data_rb, rec_data); /*将接收到的数据载入调试信息队列*/
 	}
 }

@@ -785,7 +785,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Middlwwares/Letter_Shell</GroupName>
+          <GroupName>Middlewares/Letter_Shell</GroupName>
           <Files>
             <File>
               <FileName>shell.c</FileName>
@@ -861,6 +861,56 @@
               <FileName>lw_queue_porting.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\Lw_Queue\lw_queue_porting.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/Lw_rb</GroupName>
+          <Files>
+            <File>
+              <FileName>lw_rb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Lw_rb\lw_rb.c</FilePath>
+            </File>
+            <File>
+              <FileName>lw_rb_porting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\Lw_rb\lw_rb_porting.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/cJSON</GroupName>
+          <Files>
+            <File>
+              <FileName>cJSON.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\cJSON\cJSON.c</FilePath>
+            </File>
+            <File>
+              <FileName>cJSON_porting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\cJSON\cJSON_porting.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Middlewares/zorb_framework</GroupName>
+          <Files>
+            <File>
+              <FileName>zf_fsm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\z_frame\zf_fsm.c</FilePath>
+            </File>
+            <File>
+              <FileName>zf_list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\z_frame\zf_list.c</FilePath>
+            </File>
+            <File>
+              <FileName>zf_assert.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Middlewares\z_frame\zf_assert.c</FilePath>
             </File>
           </Files>
         </Group>

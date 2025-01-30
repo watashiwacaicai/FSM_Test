@@ -33,6 +33,7 @@
 #include "fsm_menu.h"
 #include "./OLED/OLED.h"
 #include "./TLSF/tlsf_porting.h"
+#include "./cJSON/cJSON_porting.h"
 #include "./Flexible_Button/flexible_button.h"
 #include "./Flexible_Button/flexbutton_porting.h"
 #include "./Multi_Timer/MultiTimer.h"
@@ -113,6 +114,7 @@ int main(void)
 
   ccm_pool_init(); /*初始化ccm内存池*/
   OLED_Init(); /*初始化OLED*/
+  cJSON_set_hook(); /*重定向cJSON的内存管理函数*/
   user_button_init(); /*初始化flexible button*/
   debug_shell_init(); /*初始化letter shell*/
   menu_init(&menu_fsm); /*初始化菜单状态机*/
@@ -132,7 +134,7 @@ int main(void)
  
   HAL_TIM_Base_Start_IT(&TIME_BASE_TIM); /*启动系统时基定时器*/
   debug_usart_rec_start(); /*使能调试串口接收*/
-
+	  
   while (1)
   {
     /* USER CODE END WHILE */

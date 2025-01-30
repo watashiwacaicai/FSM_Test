@@ -50,6 +50,13 @@
 "fsm_test\tlsf_porting.o"
 "fsm_test\lw_queue.o"
 "fsm_test\lw_queue_porting.o"
+"fsm_test\lw_rb.o"
+"fsm_test\lw_rb_porting.o"
+"fsm_test\cjson.o"
+"fsm_test\cjson_porting.o"
+"fsm_test\zf_fsm.o"
+"fsm_test\zf_list.o"
+"fsm_test\zf_assert.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter "FSM_Test\FSM_Test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
