@@ -1,0 +1,13 @@
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_fsm.c
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_fsm.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdint.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdbool.h
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_list.h
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_assert.h
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_debug.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdio.h
+fsm_test\zf_fsm.o: ..\Middlewares\z_frame\zf_malloc.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdlib.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\string.h
+fsm_test\zf_fsm.o: ../Middlewares/./TLSF/tlsf.h
+fsm_test\zf_fsm.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stddef.h

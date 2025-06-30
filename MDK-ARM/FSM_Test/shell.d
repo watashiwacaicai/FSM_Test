@@ -1,0 +1,9 @@
+fsm_test\shell.o: ..\Middlewares\Letter_Shell\shell.c
+fsm_test\shell.o: ..\Middlewares\Letter_Shell\shell.h
+fsm_test\shell.o: ..\Middlewares\Letter_Shell\shell_cfg.h
+fsm_test\shell.o: ../Core/Inc/user_tim.h
+fsm_test\shell.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdint.h
+fsm_test\shell.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\string.h
+fsm_test\shell.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdio.h
+fsm_test\shell.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdarg.h
+fsm_test\shell.o: ..\Middlewares\Letter_Shell\shell_ext.h

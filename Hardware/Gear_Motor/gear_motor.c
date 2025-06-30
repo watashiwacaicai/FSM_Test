@@ -38,7 +38,7 @@ void sovor_pid_init(void)
 #include "user_usart.h"
 
 void shell_sovor_pid_show_argument(void)
-{
+{motor_pid.pid_compute(&motor_pid, 230.0);
 	debug_printf(">>kp: %7.3f	ki: %7.3f	kd: %7.3f\r\n", sovor_pid.kp, sovor_pid.ki, sovor_pid.kd);
 }
 

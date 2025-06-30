@@ -1,0 +1,10 @@
+fsm_test\cjson.o: ..\Middlewares\cJSON\cJSON.c
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\string.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdio.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\math.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stdlib.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\limits.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\ctype.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\float.h
+fsm_test\cjson.o: ..\Middlewares\cJSON\cJSON.h
+fsm_test\cjson.o: D:\Keil\Core\ARM\ARMCC\Bin\..\include\stddef.h

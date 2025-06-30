@@ -1,85 +1,128 @@
-#include "stdint.h"
 #include "./Lw_Pid/lw_pid.h"
 
-/*ºê¶¨Òå*/
-#define PID_OUTPUT_LIMIT_ENABLE		1
-#define PID_OUTPUT_LIMIT_DISABLE	0
-#define PID_INTEGRAL_LIMIT_ENABLE	2
-#define PID_INTEGRAL_LIMIT_DISABLE	0
-#define PID_MODE_INCREMENT			3
-#define PID_MODE_FULLSCALE			4
+/********************é™æ€å‡½æ•°å£°æ˜********************/
+static float increment_pid_compute(Pid_object_t* pid_object, float current_input);
+static float fullscale_pid_compute(Pid_object_t* pid_object, float current_input);
 
-/*¾²Ì¬º¯ÊıÉùÃ÷*/
-static double increment_pid_compute(Pid_object_t* pid_object, double current_input);
-static double fullscale_pid_compute(Pid_object_t* pid_object, double current_input);
+/********************å…¨å±€å‡½æ•°å®šä¹‰********************/
 
-/*È«¾Öº¯Êı¶¨Òå*/
-
-/*ÉèÖÃpid²ÎÊı*/
-void pid_set_argument(Pid_object_t* pid_object, double kp, double ki, double kd)
+/**
+ * @brief	è®¾ç½®pidå‚æ•°
+ * @param	pid_object pidå¯¹è±¡
+ * @param	kp æ¯”ä¾‹å‚æ•°
+ * @param	ki ç§¯åˆ†å‚æ•°
+ * @param	kd å¾®åˆ†å‚æ•°
+ * @return	æ— 
+ */
+void pid_set_argument(Pid_object_t* pid_object, float kp, float ki, float kd)
 {
 	pid_object->kp = kp;
 	pid_object->ki = ki;
 	pid_object->kd = kd;
 }
 
-/*ÉèÖÃpidÄ¿±êÖµ*/
-void pid_set_target(Pid_object_t* pid_object, double target)
+/**
+ * @brief	è®¾ç½®pidç›®æ ‡å€¼
+ * @param	pid_object pidå¯¹è±¡
+ * @param	target ç›®æ ‡å€¼	
+ * @return	æ— 
+ */
+void pid_set_target(Pid_object_t* pid_object, float target)
 {
 	pid_object->target = target;
 }
 
-/*Ê¹ÄÜpidÊä³öÏŞ·ù*/
+/**
+ * @brief	ä½¿èƒ½pidè¾“å‡ºé™å¹…
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_output_limit_enable(Pid_object_t* pid_object)
 {
 	pid_object->output_limit_state = PID_OUTPUT_LIMIT_ENABLE;
 }
 
-/*½ûÓÃpidÊä³öÏŞ·ù*/
+/**
+ * @brief	ç¦ç”¨pidè¾“å‡ºé™å¹…
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_output_limit_disable(Pid_object_t* pid_object)
 {
 	pid_object->output_limit_state = PID_OUTPUT_LIMIT_DISABLE;
 }
 
-/*ÉèÖÃpidÊä³öÏŞ·ùÉÏÏÂÏŞ*/
-void pid_set_output_limit(Pid_object_t* pid_object, double upper_limit, double floor_limit)
+/**
+ * @brief	è®¾ç½®pidè¾“å‡ºé™å¹…ä¸Šä¸‹é™
+ * @param	pid_object pidå¯¹è±¡
+ * @param	upper_limit è¾“å‡ºä¸Šé™
+ * @param	floor_limit è¾“å‡ºä¸‹é™
+ * @return	æ— 
+ */
+void pid_set_output_limit(Pid_object_t* pid_object, float upper_limit, float floor_limit)
 {
 	pid_object->output_upper_limit = upper_limit;
 	pid_object->output_floor_limit = floor_limit;
 }
 
-/*Ê¹ÄÜpidµÄ»ı·ÖÏŞ·ù*/
+/**
+ * @brief	ä½¿èƒ½pidçš„ç§¯åˆ†é™å¹…
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_intergral_limit_enable(Pid_object_t* pid_object)
 {
 	pid_object->intergral_limit_state = PID_INTEGRAL_LIMIT_ENABLE;
 }
 
-/*½ûÓÃpidµÄ»ı·ÖÏŞ·ù*/
+/**
+ * @brief	ç¦ç”¨pidçš„ç§¯åˆ†é™å¹…
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_intergral_limit_disable(Pid_object_t* pid_object)
 {
 	pid_object->intergral_limit_state = PID_INTEGRAL_LIMIT_DISABLE;
 }
 
-/*ÉèÖÃpidµÄ»ı·ÖÏŞ·ùÉÏÏÂÏŞ*/
-void pid_set_intergral_limit(Pid_object_t* pid_object, double upper_limit, double floor_limit)
+/**
+ * @brief	è®¾ç½®pidçš„ç§¯åˆ†é™å¹…ä¸Šä¸‹é™
+ * @param	pid_object pidå¯¹è±¡
+ * @param	upper_limit è¾“å‡ºä¸Šé™
+ * @param	floor_limit è¾“å‡ºä¸‹é™
+ * @return	æ— 
+ */
+void pid_set_intergral_limit(Pid_object_t* pid_object, float upper_limit, float floor_limit)
 {
 	pid_object->intergral_upper_limit = upper_limit;
 	pid_object->intergral_floor_limit = floor_limit;
 }
 
-/*ÉèÖÃpidÎªÔöÁ¿Ê½*/
+/**
+ * @brief	è®¾ç½®pidä¸ºå¢é‡å¼
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_set_mode_increment(Pid_object_t* pid_object)
 {
 	pid_object->pid_mode = PID_MODE_INCREMENT;
 }
 
-/*ÉèÖÃpidÎªÎ»ÖÃÊ½*/
+/**
+ * @brief	è®¾ç½®pidä¸ºä½ç½®å¼
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_set_mode_fullscale(Pid_object_t* pid_object)
 {
 	pid_object->pid_mode = PID_MODE_FULLSCALE;
 }
 
-/*³õÊ¼»¯pid*/
+/**
+ * @brief	åˆå§‹åŒ–pidå¯¹è±¡
+ * @param	pid_object pidå¯¹è±¡
+ * @return	æ— 
+ */
 void pid_init(Pid_object_t* pid_object)
 {
 	pid_object->error0 = 0.0;
@@ -87,25 +130,25 @@ void pid_init(Pid_object_t* pid_object)
 	pid_object->error2 = 0.0;
 	pid_object->error_intergral = 0.0;
 	
-	/*Èç¹ûÑ¡ÔñÎªÔöÁ¿Ê½*/
+	/*å¦‚æœé€‰æ‹©ä¸ºå¢é‡å¼*/
 	if(pid_object->pid_mode == PID_MODE_INCREMENT)
 	{
-		pid_object->pid_compute = increment_pid_compute;
-		
-	}else if(pid_object->pid_mode == PID_MODE_FULLSCALE) /*Èç¹ûÑ¡ÔñÎªÎ»ÖÃÊ½*/
+		pid_object->pid_compute = increment_pid_compute;		
+	}
+	else if(pid_object->pid_mode == PID_MODE_FULLSCALE) /*å¦‚æœé€‰æ‹©ä¸ºä½ç½®å¼*/
 	{
 		pid_object->pid_compute = fullscale_pid_compute;
 	}
 }
 
-/*¾²Ì¬º¯Êı¶¨Òå*/
+/********************é™æ€å‡½æ•°å®šä¹‰********************/
 
-/*¼ÆËãÔöÁ¿Ê½pid*/
-static double increment_pid_compute(Pid_object_t* pid_object, double current_input)
+/*è®¡ç®—å¢é‡å¼pid*/
+static float increment_pid_compute(Pid_object_t* pid_object, float current_input)
 {
-	double output;
+	float output;
 	
-	/*Îó²î´«µİ*/
+	/*è¯¯å·®ä¼ é€’*/
 	pid_object->error2 = pid_object->error1;
 	pid_object->error1 = pid_object->error0;
 	pid_object->error0 = pid_object->target - current_input;
@@ -113,7 +156,7 @@ static double increment_pid_compute(Pid_object_t* pid_object, double current_inp
 	output = pid_object->kp * (pid_object->error0 - pid_object->error1) + pid_object->ki * pid_object->error0
 					+ pid_object->kd * (pid_object->error0 - 2 * pid_object->error1 + pid_object->error2);
 	
-	/*Èç¹ûÊ¹ÄÜÁËÊä³öÏŞ·ù*/
+	/*å¦‚æœä½¿èƒ½äº†è¾“å‡ºé™å¹…*/
 	if(pid_object->output_limit_state == PID_OUTPUT_LIMIT_ENABLE)
 	{
 		if(output > pid_object->output_upper_limit)
@@ -129,19 +172,19 @@ static double increment_pid_compute(Pid_object_t* pid_object, double current_inp
 	return output;
 }
 
-/*¼ÆËãÎ»ÖÃÊ½pid*/
-static double fullscale_pid_compute(Pid_object_t* pid_object, double current_input)
+/*è®¡ç®—ä½ç½®å¼pid*/
+static float fullscale_pid_compute(Pid_object_t* pid_object, float current_input)
 {
-	double output;
+	float output;
 	
-	/*Îó²î´«µİ*/
+	/*è¯¯å·®ä¼ é€’*/
 	pid_object->error1 = pid_object->error0;
 	pid_object->error0 = pid_object->target - current_input;
 	
-	/*¼ÆËã»ı·Ö*/
+	/*è®¡ç®—ç§¯åˆ†*/
 	pid_object->error_intergral += pid_object->error0;
 	
-	/*Èç¹ûÊ¹ÄÜÁË»ı·ÖÏŞ·ù*/
+	/*å¦‚æœä½¿èƒ½äº†ç§¯åˆ†é™å¹…*/
 	if(pid_object->intergral_limit_state == PID_INTEGRAL_LIMIT_ENABLE)
 	{
 		if(pid_object->error_intergral > pid_object->intergral_upper_limit)
@@ -157,7 +200,7 @@ static double fullscale_pid_compute(Pid_object_t* pid_object, double current_inp
 	output = pid_object->kp * pid_object->error0 + pid_object->ki * pid_object->error_intergral 
 				+ pid_object->kd * (pid_object->error0 - pid_object->error1);
 	
-	/*Èç¹ûÊ¹ÄÜÁËÊä³öÏŞ·ù*/
+	/*å¦‚æœä½¿èƒ½äº†è¾“å‡ºé™å¹…*/
 	if(pid_object->output_limit_state == PID_OUTPUT_LIMIT_ENABLE)
 	{
 		if(output > pid_object->output_upper_limit)
